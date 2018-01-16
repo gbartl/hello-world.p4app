@@ -35,12 +35,16 @@ header ipv4_t {
 
 
 struct metadata {
+    @name("ingress_metadata")
     ingress_metadata_t   ingress_metadata;
+    @name("intrinsic_metadata")
     intrinsic_metadata_t intrinsic_metadata;
 }
 
 struct headers {
+    @name("ethernet")
     ethernet_t ethernet;
+    @name("ipv4")
     ipv4_t     ipv4;
 }
 
