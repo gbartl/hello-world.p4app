@@ -14,6 +14,7 @@ control ingress(inout headers hdr, inout metadata meta, inout standard_metadata_
         mark_to_drop();
     }
     action set_dmac_and_dport(bit<48> dmac, bit<9> port) {
+        hdr.ethernet.srcAddr = hdr.ethernet.dstAddr;
         hdr.ethernet.dstAddr = dmac;
         standard_metadata.egress_spec = port;
     }
@@ -30,9 +31,7 @@ control ingress(inout headers hdr, inout metadata meta, inout standard_metadata_
         default_action = NoAction();
     }
     apply {
-        if (hdr.ipv4.isValid()) {
-          forward.apply();
-        }
+        forward.apply();
     }
 }
 
